@@ -5,6 +5,7 @@ import fs from 'fs';
 const app = express();
 
 function donwloader (url) {
+  console.log('Por favor, aguarde')
   const videoURL = url; // Get the YouTube video URL from the query parameters
 
   // Set the file name and path
@@ -18,18 +19,16 @@ function donwloader (url) {
   ytdl(videoURL, { quality: 'highest' }).pipe(writeStream);
 
   // When the download is complete, send a response to the client
+  
   writeStream.on('finish', () => {
-    res.download(filePath, fileName, (err) => {
-      if (err) {
-        console.error(err);
-      }
-
+      console.log('Download concluído')
       // Delete the file after download is complete
-      fs.unlinkSync(filePath);
+      // fs.unlinkSync(filePath);
     });
-  });
-};
-donwloader('https://www.youtube.com/watch?v=a5uQMwRMHcs&list=RDMMa5uQMwRMHcs&start_radio=1')
+  };
+;
+
+donwloader('https://www.youtube.com/watch?v=thbDZBQk3Ng')
 
 
 // Start the server
